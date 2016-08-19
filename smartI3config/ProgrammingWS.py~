@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+import layoutcontrol as lc
+
+lc.LayoutControl(2).refreshWSLayoutByXML('/home/negatlov/.config/i3/smartI3config/Programming_layout.xml')
+

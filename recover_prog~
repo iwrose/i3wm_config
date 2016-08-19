@@ -1,0 +1,44 @@
+#!/bin/bash
+
+type=$1
+if [ $# > 1 ]; then
+    shift
+fi
+
+#得到对应工作组的PID文件夹
+pidir=$HOME/.config/i3/${type}
+#如果是第一次,文件夹不存在,则重新创建
+if [[ ! -d "$pidir" ]]; then
+    mkdir -p $pidir
+fi
+
+    
+args="$*"
+cmdlist=($(echo $args|tr '&' ' '|tr -s ' '))
+echo $args
+
+for cmd in ${cmdlist[@]}
+do
+    #获取该命令对应的PID
+    pid=`grep "^.*$" ${pidir}/${cmd}.pid 2> /dev/null`
+    echo $pid
+    if [[ $pid = '' ]]; then
+	$cmd &
+	echo $! > $pidir/${cmd}.pid
+	continue	
+    fi
+        
+    ps -p $pid
+    if [ $? = 0 ]; then
+	echo "该进程还存在,不再重新运行"
+    else
+	echo "该进程已结束,该程序重新运行,并且重新保存pid"
+	$cmd &
+	echo $! > $pidir/${cmd}.pid
+	sleep 2
+    fi
+
+done
+    
+#nohup $* >>/dev/null 2>&1 &	
+

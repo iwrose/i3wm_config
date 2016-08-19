@@ -1,0 +1,11 @@
+{
+    "border": "normal",
+    "floating": "auto_off",
+    "type": "con",
+    "class": "Firefox",
+    "swallows": [
+       {
+	   "class": "^Firefox$"
+       }
+    ]
+}

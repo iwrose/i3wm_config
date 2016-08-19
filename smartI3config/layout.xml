@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<workspace name="PWS" id="2">
+  <screen name="s1" orient="h">
+    <container name="c2" orient="v" layout="tab" type="assistant">
+      <container name="c4" orient="h" layout="splith" type="leader">
+        <window name="7" class="Evince" exename="evince"/>
+	<window name="8" class="XTerm" exename="xterm"/>
+      </container>
+      <container orient="v">
+	<window name="1" class="Firefox" exename="firefox" type="main"/>
+	<window name="2" class="Evince" exename="evince" />
+      </container>
+    </container >
+    <container name="c3" orient="v" layout="splitv" type="leader">
+      <container orient="v">
+	<window name="3" class="Emacs" exename="emacs"/>
+	<window name="4" value="XTerm" exename="xterm"/>
+      </container>
+      <container name="c4" orient="h" layout="splith" type="leader">
+        <window name="5" class="Emacs" exename="emacs"/>
+	<window name="6" class="XTerm" exename="xterm"/>
+      </container>
+    </container>
+  </screen>
+  <screen>
+  </screen>
+</workspace>

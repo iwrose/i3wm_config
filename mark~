@@ -1,0 +1,10 @@
+#!/bin/bash
+#1. 判断配置文件是否存在,不存在则创建
+tmpfile=$HOME/.config/i3/tmp.txt
+if [ ! -f "$tmpfile" ]; then
+    echo "export IS_PWS_START='NO'" > $tmpfile
+    echo "export IS_EWS_START='NO'" >> $tmpfile
+fi    
+
+#2. 根据参数修改对应的字段为YES
+sed -i "s/$1.*$/$1=\'$2\'/g" $tmpfile

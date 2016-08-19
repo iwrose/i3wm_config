@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<workspace name="PWS" id="2">
+  <screen name="s1" orient="h">
+    <container name="c1" orient="v" layout="tab" type="assistant">
+	<window name="1" class="Firefox" exename="firefox" type="main"/>
+    </container >
+    <container name="c2" orient="v" layout="splitv" type="leader">
+      <container orient="v">
+	<window name="2" class="Emacs" exename="emacs"/>
+	<window name="3" value="XTerm" exename="xterm"/>
+      </container>
+    </container>
+  </screen>
+  <screen>
+  </screen>
+</workspace>

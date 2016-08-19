@@ -1,0 +1,10 @@
+{
+    "border": "normal",
+    "type": "con",
+    "class": "Firefox",
+    "swallows": [
+       {
+	   "class": "^Firefox$"
+       }
+    ]
+}

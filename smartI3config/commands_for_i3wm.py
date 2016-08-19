@@ -1,0 +1,2 @@
+def focus(node):
+    

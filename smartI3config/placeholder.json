@@ -1,0 +1,11 @@
+{
+    "border": "normal",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "type": "con",
+    "swallows": [
+       {
+	   "class": "^XTerm$"
+       }
+    ]
+}

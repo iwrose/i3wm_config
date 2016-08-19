@@ -1,0 +1,22 @@
+#!/bin/bash
+#该sh脚本是用于启动workspace时,为保证不重复运行某些程序而设立.依据一个标志值来确定,当startx后,使用这个脚本的程序,只会被调用一次,除非退出后重新的startx一次
+#if [ $# < 2 ]; then
+   # echo "`date`:  run_once function's arguments is less than 2." >> $HOME/.config/i3/log
+#fi
+
+type=$1
+if [ $# > 1 ]; then
+    shift
+fi
+
+rst1=`grep $type $HOME/.config/i3/tmp.txt`
+rst2="IS_${type}_START='YES'"
+if [[ $rst1 = $rst2 ]]; then
+    echo "`date`: PWS is already opened, no need try again" >> $HOME/.config/i3/log
+else
+    #对于新开的程序,均保存其pid
+    echo "`date`: PWS is not opened,try opening..." >> $HOME/.config/i3/log
+    eval "$*" 2>/dev/null &
+fi
+
+
