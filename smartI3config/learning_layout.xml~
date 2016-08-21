@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<workspace name="PWS" id="2">
+  <screen name="s1" orient="h">
+    <window name="1" class="Firefox" exename="firefox" type="main"/>
+    <window name="2" class="Firefox" exename="firefox" type="main"/>
+  </screen>
+  <screen>
+  </screen>
+</workspace>

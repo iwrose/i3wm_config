@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<workspace name="PWS" id="2">
+  <screen name="s1" orient="h">
+    <window name="m-1" class="Ario" exename="ario" type="main"/>
+    <window name="m-2" class="Netease-Music" exename="xterm" />
+  </screen>
+</workspace>

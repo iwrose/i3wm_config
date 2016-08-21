@@ -71,18 +71,18 @@ class I3Msg:
         self.i3.command("exec "+str(appname))
         newapps = None;
         print("正在准备打开",appname)
-        time.sleep(0.1)
         while(True):
-
             b = self.getAppsIDInCWS(workspaceid);
             #print(list(b))
             newapps = set(b).difference(set(a))
             #print("哈哈哈",list(newapps))
+            time.sleep(0.2)
             if len(newapps) != 0:
                 break;
         if len(newapps) >1:
             print("严重错误.....fucking")
         self.focusedID = list(newapps)[0]
+
 
     def getAppsIDInCWS(self,workspaceid):
         leaves = self.i3.get_tree().leaves()
@@ -118,11 +118,18 @@ class I3Msg:
 
         self.openingNewApp(app,workspaceid)
         #self.i3.command(cmd1)
-        #time.sleep(2)
-
+        #=========================>
+        #DTS2016082101此处有个Bug,就是打开新程序后,等待时间不够,导致一些特殊程序,如ario mark的时候存在问题
+        #目前采用一个focus检查,确保完全focus上了后,再mark. 未直接采用sleep 的方式.
+        #同时也进一步的确认,所有程序应该都可以mark成功,就算是不能显示出来,但是还是支持mark的.这样就没必要维护一个app id 全局表了.
+        fcmd = "[con_id=" + str(self.focusedID) + "] mark --add "+str(id);
+        while(not (self.isFocusRight(self.focusedID))):
+            self.i3.command(fcmd)
+        #<===========================    
         cmd = "[con_id=" + str(self.focusedID) + "] mark --add "+str(id);
-        print("-----------------",cmd)
-        self.i3.command(cmd)
+        print(cmd)
+        rst = self.i3.command(cmd)
+        print(rst,"-----------------已作标记",self.i3.get_tree().find_marked("m"))
         #time.sleep(4)
         #self.i3.command(cmd2)
         print("opened win is added focuscon mark")
@@ -137,7 +144,8 @@ class I3Msg:
         #找到id对应的app,如果存在,则移动,不存在,则重新打开一个程序,并mark
         ws = self.i3.get_tree().find_by_id(workspaceid)
         a = self.getAppsIDInCWS(workspaceid);
-        cmd = "[con_mark="+str(mark)+" workspace=9] move to workspace "+ws.name
+        cmd = '[con_mark="'+str(mark)+'" workspace=9] move to workspace '+ws.name
+        print("开始尝试移动标记窗口回到原workspace", cmd)
         rst = self.i3.command(cmd)
         print("11111111111111111111111",rst)
         if not rst[0]['success']:

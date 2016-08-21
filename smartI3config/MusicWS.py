@@ -9,9 +9,9 @@ parser.add_argument('-t', type=str)
 args=parser.parse_args()
 type = args.t
 if type=="init":
-    lc.LayoutControl("2:").initWSLayoutByXML('/home/negatlov/.config/i3/smartI3config/programming_layout.xml')
+    lc.LayoutControl("8:").initWSLayoutByXML('/home/negatlov/.config/i3/smartI3config/music_layout.xml')
 elif type=="refresh":
-    lc.LayoutControl("2:").refreshWSLayoutByXML('/home/negatlov/.config/i3/smartI3config/programming_layout.xml')
+    lc.LayoutControl("8:").refreshWSLayoutByXML('/home/negatlov/.config/i3/smartI3config/music_layout.xml')
 else:
     print("Arguments is error!")
         
