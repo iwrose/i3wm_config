@@ -30,6 +30,7 @@ class LayoutControl:
             #若该screen存在,且信息准确,则继续下一步
             if self.isScreenValid(screen):
                 self.initLayoutAndApps(screen);
+        fb.close()
 
 
     def isScreenValid(self,screen):
@@ -74,7 +75,7 @@ class LayoutControl:
             #若该screen存在,且信息准确,则继续下一步
             if self.isScreenValid(screen):
                 self.refreshLayoutAndApps(screen);
-        
+        fp.close()
 
 
     def refreshLayoutAndApps(self,screen):
