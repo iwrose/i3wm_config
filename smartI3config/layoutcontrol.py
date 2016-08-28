@@ -2,6 +2,9 @@
 import layoutparse as lp
 import i3IPCmsg as im
 import time
+import os
+import fcntl
+import sys
 
 class LayoutControl:
     def __init__(self,workspaceName):
@@ -16,12 +19,18 @@ class LayoutControl:
     def initWSLayoutByXML(self,layout):
         self.i3xx.sendCmd("workspace "+str(self.workspaceName))
         self.initWorkspaceid()
+        fp = open("/var/tmp/"+self.workspaceName, 'w')
+        try:
+            fcntl.lockf(fp,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except:
+            os._exit(0)
         workspace = lp.getWorkspace(layout);
         screens = lp.getScreen(workspace);
         for screen in screens:
             #若该screen存在,且信息准确,则继续下一步
             if self.isScreenValid(screen):
                 self.initLayoutAndApps(screen);
+
 
     def isScreenValid(self,screen):
         #利用i3ipc查询信息,对比screen参数准确,且不为空
@@ -45,11 +54,19 @@ class LayoutControl:
                 appname = lp.getAppName(node);
                 appid = lp.getAppID(node);
                 self.i3xx.openAppAndMark(appname,appid,self.workspaceid);
+
+
             
 
     def refreshWSLayoutByXML(self,layout):
         self.i3xx.sendCmd("workspace "+str(self.workspaceName))
         self.initWorkspaceid()
+        fp = open("/var/tmp/"+self.workspaceName, 'w')
+        try:
+            fcntl.lockf(fp,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except:
+            os._exit(0)
+        #self.lockEnv()
         self.i3xx.moveAllApps(self.workspaceid)
         workspace = lp.getWorkspace(layout);
         screens = lp.getScreen(workspace);
@@ -57,6 +74,8 @@ class LayoutControl:
             #若该screen存在,且信息准确,则继续下一步
             if self.isScreenValid(screen):
                 self.refreshLayoutAndApps(screen);
+        
+
 
     def refreshLayoutAndApps(self,screen):
         for node in screen.childNodes:
